@@ -11,10 +11,10 @@ class AmountInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           'AMOUNT',
           style: TextStyle(
-            color: Colors.grey,
+            color: Colors.grey.shade800,
             fontSize: 10,
             fontWeight: FontWeight.bold,
             letterSpacing: 1,
