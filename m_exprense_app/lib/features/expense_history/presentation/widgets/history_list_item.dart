@@ -7,10 +7,16 @@ class HistoryListItem extends StatelessWidget {
 
   final ExpenseModel expense;
 
+  String _formatTime(DateTime date) {
+    final hour = date.hour % 12 == 0 ? 12 : date.hour % 12;
+    final minute = date.minute.toString().padLeft(2, '0');
+    final period = date.hour >= 12 ? 'PM' : 'AM';
+    return '${hour.toString().padLeft(2, '0')}:$minute $period';
+  }
+
   @override
   Widget build(BuildContext context) {
-    final timeText =
-        '${expense.date.hour}:${expense.date.minute.toString().padLeft(2, '0')}';
+    final timeText = _formatTime(expense.date);
 
     return Row(
       children: [
