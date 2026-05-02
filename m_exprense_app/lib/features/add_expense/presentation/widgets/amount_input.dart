@@ -9,6 +9,7 @@ class AmountInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
           'AMOUNT',
@@ -20,38 +21,48 @@ class AmountInput extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        TextField(
-          controller: controller,
-          keyboardType: TextInputType.numberWithOptions(decimal: true),
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-          decoration: InputDecoration(
-            prefix: Padding(
-              padding: const EdgeInsets.only(right: 2.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                color: const Color(0xFFFCF9F8),
-                child: Text(
-                  '\$',
-                  style: const TextStyle(
-                    fontSize: 36,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w700,
-                  ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 4, bottom: 8),
+              child: Text(
+                '\$',
+                style: const TextStyle(
+                  fontSize: 36,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
-            hintText: '0.00',
-            hintStyle: TextStyle(color: Colors.grey.shade400),
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryColor, width: 2),
+            Expanded(
+              child: Column(
+                children: [
+                  TextField(
+                    controller: controller,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: '0.00',
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      isCollapsed: true,
+                      contentPadding: const EdgeInsets.only(bottom: 6),
+                    ),
+                  ),
+                  Container(height: 2, color: kPrimaryColor),
+                ],
+              ),
             ),
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryColor, width: 2),
-            ),
-            isCollapsed: false,
-            contentPadding: const EdgeInsets.symmetric(vertical: 8),
-          ),
+          ],
         ),
       ],
     );

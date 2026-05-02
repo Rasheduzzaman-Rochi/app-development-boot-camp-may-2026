@@ -34,8 +34,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     'Dec',
   ];
 
-  String _formatDate(DateTime d) =>
-      '${d.day} ${_months[d.month - 1]} ${d.year}';
+  String _formatDate(DateTime d) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final dateOnly = DateTime(d.year, d.month, d.day);
+
+    if (dateOnly == today) {
+      return 'Today, ${d.day} ${_months[d.month - 1]}';
+    }
+
+    return '${d.day} ${_months[d.month - 1]}, ${d.year}';
+  }
 
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
