@@ -50,11 +50,11 @@ class HistoryScreen extends StatelessWidget {
     final monthDay = '${months[date.month - 1]} ${date.day}';
 
     if (dateOnly == today) {
-      return 'today';
+      return 'TODAY';
     }
 
     if (dateOnly == yesterday) {
-      return 'yesterday, $monthDay';
+      return 'YESTERDAY, $monthDay';
     }
 
     return '${weekdays[date.weekday % 7]}, $monthDay';
