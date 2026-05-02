@@ -15,9 +15,9 @@ class RecentList extends StatelessWidget {
     final dateOnly = DateTime(date.year, date.month, date.day);
 
     if (dateOnly == today) {
-      return 'today';
+      return 'Today';
     } else if (dateOnly == yesterday) {
-      return 'yesterday';
+      return 'Yesterday';
     } else {
       const months = [
         'Jan',
