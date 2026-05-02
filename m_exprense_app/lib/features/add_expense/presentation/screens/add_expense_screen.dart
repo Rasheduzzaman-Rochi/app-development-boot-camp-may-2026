@@ -17,6 +17,37 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   String selectedCategory = 'Food';
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
+
+  final List<String> _months = const [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  String _formatDate(DateTime d) =>
+      '${d.day} ${_months[d.month - 1]} ${d.year}';
+
+  Future<void> _pickDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now().add(const Duration(days: 365 * 5)),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() => selectedDate = picked);
+    }
+  }
 
   @override
   void dispose() {
@@ -34,7 +65,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           ? selectedCategory
           : _noteController.text,
       amount: double.parse(_amountController.text),
-      date: DateTime.now(),
+      date: selectedDate,
       category: selectedCategory,
       icon: kCategoryIcons[selectedCategory]!,
     );
@@ -79,10 +110,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
               SizedBox(height: size.height * 0.05),
 
-              const Text(
+              Text(
                 'CATEGORY',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Colors.grey.shade700,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
@@ -97,36 +128,42 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
               SizedBox(height: size.height * 0.04),
 
-              const Text(
+              Text(
                 'DATE',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Colors.grey.shade700,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                 ),
               ),
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.calendar_today_outlined,
-                    color: Colors.grey,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    'Today, ${DateTime.now().day} Oct',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                ],
+              GestureDetector(
+                onTap: _pickDate,
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_month,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      _formatDate(selectedDate),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade800,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const Divider(height: 32, thickness: 1, color: Colors.black12),
 
-              const Text(
+              Text(
                 'NOTE (OPTIONAL)',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Colors.grey.shade700,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
@@ -134,10 +171,13 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               ),
               TextField(
                 controller: _noteController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.notes, color: Colors.grey, size: 20),
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.notes, color: Colors.grey, size: 20),
                   hintText: 'What was this for?',
-                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 14,
+                  ),
                   border: InputBorder.none,
                 ),
               ),
