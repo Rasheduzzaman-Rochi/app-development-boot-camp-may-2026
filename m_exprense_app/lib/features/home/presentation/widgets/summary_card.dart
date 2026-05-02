@@ -13,7 +13,7 @@ class SummaryCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8F9FA),
+        color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -22,8 +22,8 @@ class SummaryCard extends StatelessWidget {
           const Text(
             'TOTAL MONTHLY EXPENSE',
             style: TextStyle(
-              color: Colors.grey,
-              fontSize: 10,
+              color: Colors.black,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
               letterSpacing: 1,
             ),
@@ -31,7 +31,7 @@ class SummaryCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             formatCurrency(totalExpense),
-            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
+            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
           ),
         ],
       ),

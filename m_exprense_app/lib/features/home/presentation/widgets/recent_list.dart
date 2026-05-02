@@ -8,6 +8,35 @@ class RecentList extends StatelessWidget {
 
   final List<ExpenseModel> expenses;
 
+  String _getRelativeDate(DateTime date) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    final dateOnly = DateTime(date.year, date.month, date.day);
+
+    if (dateOnly == today) {
+      return 'today';
+    } else if (dateOnly == yesterday) {
+      return 'yesterday';
+    } else {
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+      return '${date.day} ${months[date.month - 1]}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final recentExpenses = expenses.length > 3
@@ -52,7 +81,7 @@ class RecentList extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    expense.category,
+                    _getRelativeDate(expense.date),
                     style: TextStyle(color: Colors.grey.shade500, fontSize: 11),
                   ),
                 ],

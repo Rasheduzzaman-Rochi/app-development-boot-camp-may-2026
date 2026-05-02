@@ -42,9 +42,9 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: size.height * 0.02),
-            const Text(
+            Text(
               'Good morning,',
-              style: TextStyle(color: Colors.grey, fontSize: 14),
+              style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
             ),
             const Text(
               'Rochi',

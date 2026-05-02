@@ -9,9 +9,7 @@ import 'features/add_expense/presentation/screens/add_expense_screen.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ExpenseProvider()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => ExpenseProvider())],
       child: const MExpenseApp(),
     ),
   );
@@ -26,13 +24,16 @@ class MExpenseApp extends StatelessWidget {
       title: 'MExpense',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color(0xFFFCF9F8),
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1E66CB)),
         textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.black87),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.white,
         ),
       ),
       home: const MainNavigationScreen(),
@@ -91,10 +92,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             icon: Icon(Icons.add_circle_outline),
             label: 'ADD',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'HISTORY',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'HISTORY'),
         ],
       ),
     );
