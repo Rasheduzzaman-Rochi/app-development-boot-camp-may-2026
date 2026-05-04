@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/models/expense_model.dart';
+import '../../../../core/utils/constants.dart';
 import '../widgets/history_list_item.dart';
 import '../../../../providers/expense_provider.dart';
 
@@ -45,7 +46,6 @@ class HistoryScreen extends StatelessWidget {
       'NOV',
       'DEC',
     ];
-    const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     final dateOnly = DateTime(date.year, date.month, date.day);
     final monthDay = '${months[date.month - 1]} ${date.day}';
 
@@ -54,125 +54,135 @@ class HistoryScreen extends StatelessWidget {
     }
 
     if (dateOnly == yesterday) {
-      return 'YESTERDAY, $monthDay';
+      return 'YESTERDAY';
     }
 
-    return '${weekdays[date.weekday % 7]}, $monthDay';
+    return monthDay;
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     final expenseData = Provider.of<ExpenseProvider>(context);
     final sections = _groupExpenses(expenseData.expenses);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
-        title: const Text(
-          'MExpense',
-          style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 16,
-              backgroundColor: Colors.grey.shade200,
-              child: const Icon(Icons.person, color: Colors.grey, size: 20),
-            ),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: size.height * 0.02),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundColor: const Color(0xFFD7E1FF),
+                    child: Icon(
+                      Icons.person,
+                      size: 16,
+                      color: Colors.blue.shade700,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'MExpense',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 22,
+                    ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notifications_none_rounded,
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 1,
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Expense\nHistory',
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Expense History',
                       style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        height: 1.1,
+                        fontSize: 38,
+                        fontWeight: FontWeight.w700,
+                        color: kTitleTextColor,
+                        height: 1,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Review your recent financial activity.',
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Track your precision spending habits',
                       style: TextStyle(
-                        color: Colors.grey.shade700,
-                        fontSize: 12,
+                        color: kMutedTextColor,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: ListView.separated(
+                        itemCount: sections.length,
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 20),
+                        itemBuilder: (context, sectionIndex) {
+                          final section = sections[sectionIndex];
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  section.title,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 1,
+                                    color: kMutedTextColor,
+                                  ),
+                                ),
+                              ),
+                              ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: section.items.length,
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(height: 10),
+                                itemBuilder: (context, index) {
+                                  return HistoryListItem(
+                                    expense: section.items[index],
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Row(
-                    children: [
-                      Text('All Time', style: TextStyle(fontSize: 12)),
-                      Icon(Icons.keyboard_arrow_down, size: 16),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: size.height * 0.04),
-            Expanded(
-              child: ListView.separated(
-                itemCount: sections.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 24),
-                itemBuilder: (context, sectionIndex) {
-                  final section = sections[sectionIndex];
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Text(
-                          section.title,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.6,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: section.items.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 16),
-                        itemBuilder: (context, index) {
-                          return HistoryListItem(expense: section.items[index]);
-                        },
-                      ),
-                    ],
-                  );
-                },
               ),
             ),
           ],

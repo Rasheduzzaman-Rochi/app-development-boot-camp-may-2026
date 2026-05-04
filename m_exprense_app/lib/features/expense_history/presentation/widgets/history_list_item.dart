@@ -17,45 +17,63 @@ class HistoryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timeText = _formatTime(expense.date);
+    final accentColor =
+        kCategoryAccentColors[expense.category] ?? const Color(0xFF6B7280);
+    final softColor =
+        kCategorySoftColors[expense.category] ?? const Color(0xFFF1F4F9);
 
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            shape: BoxShape.circle,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      decoration: BoxDecoration(
+        color: kCardColor,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: softColor,
+              borderRadius: BorderRadius.circular(11),
+            ),
+            child: Icon(expense.icon, color: accentColor, size: 20),
           ),
-          child: Icon(expense.icon, color: Colors.black54, size: 20),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                expense.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  expense.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: kTitleTextColor,
+                  ),
                 ),
-              ),
-              Text(
-                '${expense.category} • $timeText',
-                style: TextStyle(color: Colors.grey.shade500, fontSize: 11),
-              ),
-            ],
+                const SizedBox(height: 2),
+                Text(
+                  '$timeText • ${expense.category}',
+                  style: const TextStyle(
+                    color: kMutedTextColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        Text(
-          formatCurrency(expense.amount),
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-            color: Colors.black87,
+          Text(
+            formatSignedAmount(expense.amount),
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 23,
+              color: kTitleTextColor,
+              height: 1,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

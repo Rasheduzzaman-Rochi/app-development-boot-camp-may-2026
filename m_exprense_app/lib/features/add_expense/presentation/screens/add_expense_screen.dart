@@ -68,158 +68,230 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   void _saveExpense() {
     if (_amountController.text.isEmpty) return;
 
+    final parsedAmount = double.tryParse(_amountController.text);
+    if (parsedAmount == null || parsedAmount <= 0) return;
+
     final newExpense = ExpenseModel(
       id: DateTime.now().toString(),
       title: _noteController.text.isEmpty
           ? selectedCategory
           : _noteController.text,
-      amount: double.parse(_amountController.text),
+      amount: parsedAmount,
       date: selectedDate,
       category: selectedCategory,
       icon: kCategoryIcons[selectedCategory]!,
     );
 
     Provider.of<ExpenseProvider>(context, listen: false).addExpense(newExpense);
-    Navigator.pop(context);
+    _amountController.clear();
+    _noteController.clear();
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Expense saved')));
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Add New Expense',
-          style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: size.height * 0.04),
-              Center(
-                child: SizedBox(
-                  width: size.width * 0.5,
-                  child: AmountInput(controller: _amountController),
-                ),
-              ),
-
-              SizedBox(height: size.height * 0.05),
-
-              Text(
-                'CATEGORY',
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
-                ),
-              ),
-              const SizedBox(height: 12),
-              CategoryChips(
-                selectedCategory: selectedCategory,
-                onSelected: (category) =>
-                    setState(() => selectedCategory = category),
-              ),
-
-              SizedBox(height: size.height * 0.04),
-
-              Text(
-                'DATE',
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
-                ),
-              ),
-              const SizedBox(height: 12),
-              GestureDetector(
-                onTap: _pickDate,
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.calendar_month,
-                      color: Colors.grey,
-                      size: 20,
+        child: Column(
+          children: [
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundColor: const Color(0xFFD7E1FF),
+                    child: Icon(
+                      Icons.person,
+                      size: 16,
+                      color: Colors.blue.shade700,
                     ),
-                    const SizedBox(width: 12),
-                    Text(
-                      _formatDate(selectedDate),
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade800,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(height: 32, thickness: 1, color: Colors.black12),
-
-              Text(
-                'NOTE (OPTIONAL)',
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
-                ),
-              ),
-              TextField(
-                controller: _noteController,
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.notes, color: Colors.grey, size: 20),
-                  hintText: 'What was this for?',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: 14,
                   ),
-                  border: InputBorder.none,
-                ),
-              ),
-              const Divider(height: 16, thickness: 1, color: Colors.black12),
-
-              const Spacer(),
-
-              SizedBox(
-                width: double.infinity,
-                height: 54,
-                child: ElevatedButton.icon(
-                  onPressed: _saveExpense,
-                  icon: const Icon(Icons.check, color: Colors.white),
-                  label: const Text(
-                    'Save Expense',
+                  const SizedBox(width: 10),
+                  const Text(
+                    'MExpense',
                     style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 22,
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1E66CB),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notifications_none_rounded,
+                      color: kPrimaryColor,
                     ),
-                    elevation: 0,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 1,
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 6),
+                      const Center(
+                        child: Text(
+                          'Add Expense',
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w700,
+                            color: kTitleTextColor,
+                            height: 1,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      const Center(
+                        child: Text(
+                          'TRANSACTION DETAILS',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: kMutedTextColor,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      AmountInput(controller: _amountController),
+                      const SizedBox(height: 18),
+                      Text(
+                        'CATEGORY',
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      CategoryChips(
+                        selectedCategory: selectedCategory,
+                        onSelected: (category) =>
+                            setState(() => selectedCategory = category),
+                      ),
+                      const SizedBox(height: 14),
+                      Text(
+                        'DATE',
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      GestureDetector(
+                        onTap: _pickDate,
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 14,
+                          ),
+                          decoration: BoxDecoration(
+                            color: kCardColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.calendar_month_outlined,
+                                color: kPrimaryColor,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                _formatDate(selectedDate),
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  color: kTitleTextColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Text(
+                        'NOTE',
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: kCardColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: TextField(
+                          controller: _noteController,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.notes_rounded,
+                              color: kPrimaryColor,
+                            ),
+                            hintText: 'What was this for?',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 54,
+                        child: ElevatedButton(
+                          onPressed: _saveExpense,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            elevation: 0,
+                          ),
+                          child: const Text(
+                            'Save Expense',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(height: size.height * 0.04),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'core/utils/constants.dart';
 import 'features/home/presentation/screens/home_screen.dart';
 import 'providers/expense_provider.dart';
 import 'features/expense_history/presentation/screens/history_screen.dart';
@@ -24,13 +25,13 @@ class MExpenseApp extends StatelessWidget {
       title: 'MExpense',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFFCF9F8),
+        scaffoldBackgroundColor: const Color(0xFFFBF8FF),
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1E66CB)),
         textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black87),
+          iconTheme: IconThemeData(color: kTitleTextColor),
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
@@ -51,9 +52,9 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
+  late final List<Widget> _screens = [
     const HomeScreen(),
-    const SizedBox(),
+    const AddExpenseScreen(),
     const HistoryScreen(),
   ];
 
@@ -61,39 +62,98 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        elevation: 10,
-        currentIndex: _currentIndex,
-        selectedItemColor: const Color(0xFF1E66CB),
-        unselectedItemColor: Colors.grey.shade400,
-        showUnselectedLabels: true,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        onTap: (index) {
-          if (index == 1) {
-            // Push Add Expense Screen on top of everything
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddExpenseScreen()),
-            );
-          } else {
-            setState(() {
-              _currentIndex = index;
-            });
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'HOME',
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.zero,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline),
-            label: 'ADD',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'HISTORY'),
-        ],
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x33000000),
+              blurRadius: 8,
+              offset: Offset(0, -2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _NavItem(
+              icon: Icons.home_rounded,
+              label: 'Home',
+              isSelected: _currentIndex == 0,
+              onTap: () => setState(() => _currentIndex = 0),
+            ),
+            _NavItem(
+              icon: Icons.add_circle,
+              label: 'Add',
+              isSelected: _currentIndex == 1,
+              onTap: () => setState(() => _currentIndex = 1),
+            ),
+            _NavItem(
+              icon: Icons.history,
+              label: 'History',
+              isSelected: _currentIndex == 2,
+              onTap: () => setState(() => _currentIndex = 2),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NavItem extends StatelessWidget {
+  const _NavItem({
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        padding: EdgeInsets.symmetric(
+          horizontal: isSelected ? 12 : 8,
+          vertical: isSelected ? 6 : 4,
+        ),
+        decoration: BoxDecoration(
+          color: isSelected ? kPrimaryColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 22,
+              color: isSelected ? Colors.white : kMutedTextColor,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: isSelected ? Colors.white : kMutedTextColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

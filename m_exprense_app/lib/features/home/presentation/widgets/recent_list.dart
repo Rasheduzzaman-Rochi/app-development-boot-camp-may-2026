@@ -16,86 +16,112 @@ class RecentList extends StatelessWidget {
 
     if (dateOnly == today) {
       return 'Today';
-    } else if (dateOnly == yesterday) {
-      return 'Yesterday';
-    } else {
-      const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
-      return '${date.day} ${months[date.month - 1]}';
     }
+    if (dateOnly == yesterday) {
+      return 'Yesterday';
+    }
+
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    return '${date.day} ${months[date.month - 1]}';
+  }
+
+  String _formatTime(DateTime date) {
+    final hour = date.hour % 12 == 0 ? 12 : date.hour % 12;
+    final minute = date.minute.toString().padLeft(2, '0');
+    final period = date.hour >= 12 ? 'PM' : 'AM';
+    return '${hour.toString().padLeft(2, '0')}:$minute $period';
   }
 
   @override
   Widget build(BuildContext context) {
-    final recentExpenses = expenses.length > 3
-        ? expenses.take(3).toList()
+    final recentExpenses = expenses.length > 4
+        ? expenses.take(4).toList()
         : expenses;
 
     if (recentExpenses.isEmpty) {
       return const Center(
         child: Text(
           'No transactions yet.',
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(color: kMutedTextColor),
         ),
       );
     }
 
     return ListView.separated(
       itemCount: recentExpenses.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 16),
+      separatorBuilder: (context, index) => const SizedBox(height: 10),
       itemBuilder: (context, index) {
         final expense = recentExpenses[index];
+        final accentColor =
+            kCategoryAccentColors[expense.category] ?? const Color(0xFF6B7280);
+        final softColor =
+            kCategorySoftColors[expense.category] ?? const Color(0xFFF1F4F9);
 
-        return Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                shape: BoxShape.circle,
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          decoration: BoxDecoration(
+            color: kCardColor,
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: softColor,
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Icon(expense.icon, color: accentColor, size: 20),
               ),
-              child: Icon(expense.icon, color: Colors.black54, size: 20),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    expense.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      expense.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: kTitleTextColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    _getRelativeDate(expense.date),
-                    style: TextStyle(color: Colors.grey.shade500, fontSize: 11),
-                  ),
-                ],
+                    const SizedBox(height: 2),
+                    Text(
+                      '${expense.category} • ${_getRelativeDate(expense.date)}, ${_formatTime(expense.date)}',
+                      style: const TextStyle(
+                        color: kMutedTextColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Text(
-              '-${formatCurrency(expense.amount)}',
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: Colors.black87,
+              Text(
+                formatSignedAmount(expense.amount),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 23,
+                  color: kTitleTextColor,
+                  height: 1,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
