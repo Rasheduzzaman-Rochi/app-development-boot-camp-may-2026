@@ -70,10 +70,20 @@ class HistoryScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              color: Colors.white,
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+              padding: const EdgeInsets.fromLTRB(18, 6, 18, 8),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x11000000),
+                    blurRadius: 4,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
               child: Row(
                 children: [
+                  const SizedBox(width: 4),
                   CircleAvatar(
                     radius: 15,
                     backgroundColor: const Color(0xFFD7E1FF),
@@ -83,12 +93,12 @@ class HistoryScreen extends StatelessWidget {
                       color: Colors.blue.shade700,
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 14),
                   const Text(
                     'MExpense',
                     style: TextStyle(
                       color: kPrimaryColor,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.bold,
                       fontSize: 22,
                     ),
                   ),
@@ -99,18 +109,6 @@ class HistoryScreen extends StatelessWidget {
                       Icons.notifications_none_rounded,
                       color: kPrimaryColor,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 1,
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x33000000),
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
                   ),
                 ],
               ),
