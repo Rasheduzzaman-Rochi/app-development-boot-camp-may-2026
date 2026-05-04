@@ -21,7 +21,7 @@ class ExpenseModel extends HiveObject {
   final String category;
 
   @HiveField(5)
-  late IconData icon;
+  late int iconCodePoint;
 
   ExpenseModel({
     required this.id,
@@ -29,6 +29,10 @@ class ExpenseModel extends HiveObject {
     required this.amount,
     required this.date,
     required this.category,
-    required this.icon,
-  });
+    IconData? icon,
+  }) {
+    iconCodePoint = icon?.codePoint ?? 0;
+  }
+
+  IconData get icon => IconData(iconCodePoint, fontFamily: 'MaterialIcons');
 }

@@ -3,6 +3,7 @@ import '../../../../core/utils/constants.dart';
 
 class NavItem extends StatelessWidget {
   const NavItem({
+    super.key,
     required this.icon,
     required this.label,
     required this.isSelected,

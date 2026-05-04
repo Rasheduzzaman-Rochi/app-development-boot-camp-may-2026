@@ -22,8 +22,7 @@ class ExpenseModelAdapter extends TypeAdapter<ExpenseModel> {
       amount: fields[2] as double,
       date: fields[3] as DateTime,
       category: fields[4] as String,
-      icon: fields[5] as IconData,
-    );
+    )..iconCodePoint = fields[5] as int;
   }
 
   @override
@@ -41,7 +40,7 @@ class ExpenseModelAdapter extends TypeAdapter<ExpenseModel> {
       ..writeByte(4)
       ..write(obj.category)
       ..writeByte(5)
-      ..write(obj.icon);
+      ..write(obj.iconCodePoint);
   }
 
   @override
