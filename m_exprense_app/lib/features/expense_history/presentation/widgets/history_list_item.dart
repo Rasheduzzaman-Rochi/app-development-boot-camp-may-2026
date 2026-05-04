@@ -27,6 +27,13 @@ class HistoryListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: kCardColor,
         borderRadius: BorderRadius.circular(14),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x1A000000),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -67,7 +74,7 @@ class HistoryListItem extends StatelessWidget {
             formatSignedAmount(expense.amount),
             style: const TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: 23,
+              fontSize: 16,
               color: kTitleTextColor,
               height: 1,
             ),

@@ -115,35 +115,35 @@ class HistoryScreen extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 24),
                     const Text(
                       'Expense History',
                       style: TextStyle(
-                        fontSize: 38,
+                        fontSize: 26,
                         fontWeight: FontWeight.w700,
                         color: kTitleTextColor,
                         height: 1,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 8),
                     const Text(
                       'Track your precision spending habits',
                       style: TextStyle(
-                        color: kMutedTextColor,
+                        color: Color.fromARGB(255, 87, 90, 96),
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 24),
                     Expanded(
                       child: ListView.separated(
                         itemCount: sections.length,
                         separatorBuilder: (context, index) =>
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 24),
                         itemBuilder: (context, sectionIndex) {
                           final section = sections[sectionIndex];
 
@@ -167,7 +167,7 @@ class HistoryScreen extends StatelessWidget {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: section.items.length,
                                 separatorBuilder: (context, index) =>
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 12),
                                 itemBuilder: (context, index) {
                                   return HistoryListItem(
                                     expense: section.items[index],
