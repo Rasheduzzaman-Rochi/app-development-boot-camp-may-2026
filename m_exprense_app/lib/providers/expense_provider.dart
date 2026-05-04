@@ -5,7 +5,6 @@ import '../core/models/expense_model.dart';
 class ExpenseProvider extends ChangeNotifier {
   late Box<ExpenseModel> _expenseBox;
   List<ExpenseModel> _expenses = [];
-  bool _initialized = false;
 
   Future<void> init() async {
     _expenseBox = await Hive.openBox<ExpenseModel>('expenses');
@@ -85,7 +84,6 @@ class ExpenseProvider extends ChangeNotifier {
     }
 
     _expenses = _expenseBox.values.toList().reversed.toList();
-    _initialized = true;
     notifyListeners();
   }
 
