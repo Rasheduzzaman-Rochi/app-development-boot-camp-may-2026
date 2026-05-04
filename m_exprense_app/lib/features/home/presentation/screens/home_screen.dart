@@ -71,14 +71,14 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: 14),
                     SummaryCard(totalExpense: expenseData.totalMonthlyExpense),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 32),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         Text(
                           'Recent Transactions',
                           style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: kTitleTextColor,
                             height: 1,
