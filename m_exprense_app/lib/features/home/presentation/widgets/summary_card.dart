@@ -23,12 +23,12 @@ class SummaryCard extends StatelessWidget {
               'TOTAL MONTHLY EXPENSE',
               style: TextStyle(
                 color: Color(0xFFD9E2FF),
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 1,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             Text(
               formatCurrency(totalExpense),
               style: const TextStyle(
