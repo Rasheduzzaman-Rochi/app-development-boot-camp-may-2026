@@ -1,5 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../../../core/utils/constants.dart';
+
+class _MaxThreeDigitsFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    String text = newValue.text;
+
+    // Allow only digits and one decimal point
+    if (text.isEmpty) return newValue;
+
+    // Split by decimal
+    List<String> parts = text.split('.');
+
+    // If more than one decimal point, reject
+    if (parts.length > 2) {
+      return oldValue;
+    }
+
+    // Limit integer part to 3 digits
+    if (parts[0].length > 3) {
+      return oldValue;
+    }
+
+    return newValue;
+  }
+}
 
 class AmountInput extends StatelessWidget {
   const AmountInput({super.key, required this.controller});
@@ -12,33 +41,33 @@ class AmountInput extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.only(bottom: 8),
+              padding: EdgeInsets.only(right: 1),
               child: Text(
                 '\$',
                 style: TextStyle(
-                  fontSize: 38,
+                  fontSize: 24,
                   color: Color(0xFF5D87FF),
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-            const SizedBox(width: 8),
             SizedBox(
-              width: 210,
+              width: 120,
               child: TextField(
                 controller: controller,
+                inputFormatters: [_MaxThreeDigitsFormatter()],
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
-                textAlign: TextAlign.left,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 58,
+                  fontSize: 40,
                   fontWeight: FontWeight.w700,
                   color: kTitleTextColor,
-                  height: 0.98,
+                  height: 1,
                 ),
                 decoration: const InputDecoration(
                   hintText: '0.00',
@@ -51,22 +80,6 @@ class AmountInput extends StatelessWidget {
               ),
             ),
           ],
-        ),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-          decoration: BoxDecoration(
-            color: const Color(0xFFE8EBF3),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: const Text(
-            'Set Amount',
-            style: TextStyle(
-              color: kMutedTextColor,
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
-            ),
-          ),
         ),
       ],
     );

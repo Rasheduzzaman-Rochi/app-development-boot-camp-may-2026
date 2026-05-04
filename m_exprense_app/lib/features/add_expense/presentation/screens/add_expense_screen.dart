@@ -143,17 +143,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 20),
                       const Center(
                         child: Text(
                           'Add Expense',
                           style: TextStyle(
-                            fontSize: 36,
+                            fontSize: 24,
                             fontWeight: FontWeight.w700,
                             color: kTitleTextColor,
                             height: 1,
@@ -174,7 +174,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       ),
                       const SizedBox(height: 16),
                       AmountInput(controller: _amountController),
-                      const SizedBox(height: 18),
+                      const SizedBox(height: 22),
                       Text(
                         'CATEGORY',
                         style: TextStyle(
@@ -190,74 +190,99 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                         onSelected: (category) =>
                             setState(() => selectedCategory = category),
                       ),
-                      const SizedBox(height: 14),
-                      Text(
-                        'DATE',
-                        style: TextStyle(
-                          color: Colors.grey.shade700,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      GestureDetector(
-                        onTap: _pickDate,
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 14,
-                          ),
-                          decoration: BoxDecoration(
-                            color: kCardColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.calendar_month_outlined,
-                                color: kPrimaryColor,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                _formatDate(selectedDate),
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: kTitleTextColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      Text(
-                        'NOTE',
-                        style: TextStyle(
-                          color: Colors.grey.shade700,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 18),
                       Container(
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: kCardColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: TextField(
-                          controller: _noteController,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.notes_rounded,
-                              color: kPrimaryColor,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'DATE',
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1,
+                              ),
                             ),
-                            hintText: 'What was this for?',
-                            border: InputBorder.none,
-                          ),
+                            const SizedBox(height: 8),
+                            GestureDetector(
+                              onTap: _pickDate,
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 12,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF8F9FB),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.calendar_month_outlined,
+                                      color: kPrimaryColor,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      _formatDate(selectedDate),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: kTitleTextColor,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: kCardColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'NOTE',
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF8F9FB),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: TextField(
+                                controller: _noteController,
+                                decoration: const InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.notes_rounded,
+                                    color: kPrimaryColor,
+                                  ),
+                                  hintText: 'What was this for?',
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 16),

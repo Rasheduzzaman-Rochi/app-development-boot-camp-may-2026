@@ -19,11 +19,12 @@ class CategoryChips extends StatelessWidget {
       itemCount: categories.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 1.15,
+        crossAxisSpacing: 14,
+        mainAxisSpacing: 14,
+        childAspectRatio: 0.99,
       ),
       itemBuilder: (context, index) {
         final category = categories[index];
@@ -34,48 +35,53 @@ class CategoryChips extends StatelessWidget {
         final accentColor =
             kCategoryAccentColors[category] ?? const Color(0xFF8F98AE);
 
-        return InkWell(
-          borderRadius: BorderRadius.circular(14),
-          onTap: isMore ? null : () => onSelected(category),
-          child: Container(
-            decoration: BoxDecoration(
-              color: isSelected ? const Color(0xFFEEF3FF) : kCardColor,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: isMore
-                    ? const Color(0xFFCED5E6)
-                    : isSelected
-                    ? kPrimaryColor
+        return Container(
+          decoration: BoxDecoration(
+            color: kCardColor,
+            borderRadius: BorderRadius.circular(12),
+            border: isMore
+                ? Border.all(color: const Color(0xFFCED5E6), width: 1.2)
+                : null,
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: isMore ? null : () => onSelected(category),
+            child: Container(
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? const Color(0xFFEEF3FF)
                     : Colors.transparent,
-                width: isMore || isSelected ? 1.2 : 1,
-                style: isMore ? BorderStyle.solid : BorderStyle.solid,
+                borderRadius: BorderRadius.circular(12),
+                border: isSelected
+                    ? Border.all(color: kPrimaryColor, width: 1.2)
+                    : null,
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(9),
-                  decoration: BoxDecoration(
-                    color: isMore ? const Color(0xFFF1F4FA) : softColor,
-                    borderRadius: BorderRadius.circular(11),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: isMore ? const Color(0xFFF1F4FA) : softColor,
+                      borderRadius: BorderRadius.circular(11),
+                    ),
+                    child: Icon(
+                      isMore ? Icons.add : kCategoryIcons[category],
+                      color: isMore ? const Color(0xFF7E879A) : accentColor,
+                      size: 20,
+                    ),
                   ),
-                  child: Icon(
-                    isMore ? Icons.add : kCategoryIcons[category],
-                    color: isMore ? const Color(0xFF7E879A) : accentColor,
-                    size: 18,
+                  const SizedBox(height: 8),
+                  Text(
+                    category,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: kTitleTextColor,
+                      fontSize: 12,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  category,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: kTitleTextColor,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
