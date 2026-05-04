@@ -4,8 +4,7 @@
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.11+-blue.svg)
 ![Dart](https://img.shields.io/badge/Dart-3.11+-blue.svg)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-green.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 
 ---
 
@@ -149,10 +148,10 @@ m_exprense_app/
 ```
 
 ### Architecture Explanation
-আমরা **Clean Architecture** এবং **Feature-Based** structure অনুসরণ করি:
-- প্রতিটি feature নিজস্ব folder এ
-- presentation, domain, data layers পৃথক
-- Reusable components widgets folder এ
+We follow a **Clean Architecture** and **Feature-Based** structure:
+- Each feature is in its own folder
+- presentation, domain, data layers are separate
+- Reusable components are in the widgets folder
 
 ---
 
@@ -666,44 +665,15 @@ Solution: Check MediaQuery usage, use responsive sizing
 
 | Role | Name | Responsibilities |
 |------|------|------------------|
-| Developer | Rashed Uzzaman | Full stack development |
+| Developer | Rasheduzzaman Rochi | Full stack development |
 
 ---
 
 ## 📞 Support & Contact
 
 **For Questions or Issues:**
-- 📧 Email: rashed.uzzaman@example.com
+- 📧 Email: rasheduzzaman2003@gmail.com
 - 💬 GitHub Issues: [Project Repo Issues]
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-```
-MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software...
-```
-
----
-
-## 📅 Project Timeline
-
-| Phase | Duration | Status |
-|-------|----------|--------|
-| Planning & Design | Week 1 | ✅ Complete |
-| Core Implementation | Week 2-3 | ✅ Complete |
-| Feature Development | Week 3-4 | ✅ Complete |
-| Testing & Debugging | Week 4-5 | ✅ Complete |
-| Documentation | Week 5 | ✅ Complete |
-| **Total Time** | **5 Weeks** | ✅ **DONE** |
 
 ---
 
@@ -717,18 +687,15 @@ copies of the Software...
 ✅ Testing: Passed
 ✅ Production Ready
 
-Status: READY FOR DEPLOYMENT 🚀
 ```
 
 ---
 
-**Project Created**: May 2026  
+**Project Created**: May 2, 2026  
 **Last Updated**: May 4, 2026  
 **Version**: 1.0.0  
 **Framework**: Flutter 3.11+  
 **Language**: Dart 3.11+  
-
-**🎓 Bootcamp Internship Project - COMPLETED ✅**
 
 ---
 
@@ -1134,17 +1101,7 @@ For issues, questions, or suggestions:
 - ✅ Category management
 - ✅ Transaction history
 
-### Future Features (v2.0.0)
-- 📊 Charts and analytics
-- 💾 Cloud sync
-- 📅 Budget planning
-- 🔔 Expense reminders
-- 📤 Export to CSV/PDF
-- 🌙 Dark mode
-- 🔐 Biometric authentication
-
 ---
 
 **Last Updated**: May 4, 2026  
 **Version**: 1.0.0  
-**Status**: ✅ Production Ready
