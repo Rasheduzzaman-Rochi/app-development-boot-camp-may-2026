@@ -1,8 +1,6 @@
 # 💰 MExpense - Expense Tracker Application
 
-**Bootcamp Internship Project | Flutter Development**
-
-> একটি আধুনিক এবং সম্পূর্ণ কার্যকরী খরচ ট্র্যাকিং মোবাইল অ্যাপ্লিকেশন যা Flutter এবং Dart দিয়ে তৈরি।
+> A modern, fully-functional expense tracking mobile application built with Flutter and Dart.
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.11+-blue.svg)
 ![Dart](https://img.shields.io/badge/Dart-3.11+-blue.svg)
@@ -32,40 +30,39 @@
 
 ## 📱 Project Overview
 
-### উদ্দেশ্য (Objective)
-এই প্রজেক্টটি একটি **Bootcamp Internship** এর অংশ যেখানে:
-- ✅ Modern Flutter development practices শিখা
-- ✅ Production-ready app তৈরি করা
-- ✅ Clean code architecture বাস্তবায়ন
-- ✅ Complete feature-rich application ডেভেলপ করা
+### Application Description
+MExpense is a personal expense tracking application that helps users:
+- Record daily expenses
+- Organize expenses by category
+- View monthly expense summaries
+- Browse transaction history
 
-### অ্যাপ্লিকেশন বর্ণনা
-MExpense একটি ব্যক্তিগত খরচ ট্র্যাকিং অ্যাপ্লিকেশন যা ব্যবহারকারীদের:
-- দৈনিক খরচ রেকর্ড করতে
-- ক্যাটাগরি অনুযায়ী খরচ সংগঠিত করতে
-- মাসিক খরচের সারসংক্ষেপ দেখতে
-- ট্রানজ্যাকশন ইতিহাস ব্রাউজ করতে সাহায্য করে
+### Key Objectives
+- Provide a simple and intuitive interface for expense management
+- Implement robust local data persistence
+- Follow modern Flutter development best practices
+- Deliver a production-ready application
 
 ---
 
 ## ✨ Features
 
 ### Core Functionality
-| ফিচার | বর্ণনা | স্ট্যাটাস |
-|--------|--------|--------|
-| Add Expense | নতুন খরচ যোগ করা | ✅ Complete |
-| Category Management | 5টি প্রি-ডিফাইনড ক্যাটাগরি | ✅ Complete |
-| Transaction History | তারিখ অনুযায়ী সংগঠিত লিস্ট | ✅ Complete |
-| Monthly Summary | মাসিক মোট খরচ দেখান | ✅ Complete |
-| Data Persistence | Hive দিয়ে লোকাল স্টোরেজ | ✅ Complete |
-| Date Tracking | প্রতিটি ট্রানজ্যাকশনে তারিখ | ✅ Complete |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Add Expense | Record new expenses | ✅ Complete |
+| Category Management | 5 predefined categories | ✅ Complete |
+| Transaction History | Date-organized list view | ✅ Complete |
+| Monthly Summary | View total monthly expenses | ✅ Complete |
+| Data Persistence | Local storage with Hive | ✅ Complete |
+| Date Tracking | Timestamp for each transaction | ✅ Complete |
 
 ### UI/UX Features
 - 🎨 **Modern Design System** - Solid color palette, white cards
 - 🎯 **Smooth Navigation** - Animated bottom nav with pill indicator
-- ⚡ **Responsive Layout** - বিভিন্ন ডিভাইসে অপ্টিমাইজড
+- ⚡ **Responsive Layout** - Optimized for different devices
 - 🎭 **Visual Feedback** - Shadows, animations, proper spacing
-- 📱 **Material Design** - Flutter/Material Design guidelines অনুসরণ
+- 📱 **Material Design** - Following Flutter/Material Design guidelines
 
 ---
 
@@ -161,7 +158,7 @@ m_exprense_app/
 
 ## 🎨 Design System
 
-### Color Palette (Solid Colors - Gradients নেই)
+### Color Palette (Solid Colors - No Gradients)
 ```dart
 // Primary Colors
 kPrimaryColor = #1E66CB (Blue - Buttons, Active states)
@@ -174,8 +171,8 @@ kMutedTextColor = #8A93A8 (Gray - Secondary text)
 ```
 
 ### Category Color System
-| ক্যাটাগরি | Accent | Background |
-|---------|--------|-----------|
+| Category | Accent | Background |
+|----------|--------|-----------|
 | 🍔 Food | #F97316 | #FED7AA |
 | 🚗 Transport | #0EA5E9 | #BAE6FD |
 | 💳 Bills | #8B5CF6 | #E9D5FF |
@@ -209,23 +206,23 @@ Small Text: 10-11px, Semi-bold (600), Inter
 
 ### Step-by-Step Installation
 
-**1. Repository Clone করুন**
+**1. Clone the Repository**
 ```bash
 cd app-development-boot-camp-may-2026
 cd m_exprense_app
 ```
 
-**2. Dependencies Install করুন**
+**2. Install Dependencies**
 ```bash
 flutter pub get
 ```
 
-**3. Hive Adapters Generate করুন**
+**3. Generate Hive Adapters**
 ```bash
 dart run build_runner build
 ```
 
-**4. App চালান**
+**4. Run the App**
 ```bash
 # iPhone Simulator
 flutter run -d 876AA88B-3846-41C8-9FE0-AAA981C409F5
@@ -346,9 +343,9 @@ final box = await Hive.openBox<ExpenseModel>('expenses');
 | iconCodePoint | int | Icon codepoint (serializable) |
 
 ### Persistence Strategy
-- অ্যাপ চালু হলে database তে সব data থাকে
-- নতুন expense add হলে immediately save হয়
-- App restart করলেও data হারায় না
+- All data is persisted in the local database
+- New expenses are saved immediately
+- Data is retained across app restarts
 
 ---
 
@@ -497,7 +494,7 @@ R (in flutter run)
 
 ### Adding New Feature
 
-**Step 1**: Feature folder structure তৈরি করুন
+**Step 1**: Create feature folder structure
 ```bash
 lib/features/
 ├── new_feature/
@@ -508,7 +505,7 @@ lib/features/
 │           └── new_widget.dart
 ```
 
-**Step 2**: Screen implement করুন
+**Step 2**: Implement the screen
 ```dart
 class NewFeatureScreen extends StatelessWidget {
   const NewFeatureScreen({super.key});
@@ -523,7 +520,7 @@ class NewFeatureScreen extends StatelessWidget {
 }
 ```
 
-**Step 3**: Navigation update করুন
+**Step 3**: Update navigation
 ```dart
 // main_navigation_screen.dart
 late final List<Widget> _screens = [
@@ -534,7 +531,7 @@ late final List<Widget> _screens = [
 ];
 ```
 
-**Step 4**: Navigation button যোগ করুন
+**Step 4**: Add navigation button
 ```dart
 NavItem(
   icon: Icons.feature_icon,
@@ -545,14 +542,14 @@ NavItem(
 ```
 
 ### Model Modification
-ExpenseModel এ পরিবর্তন করলে:
+When modifying ExpenseModel:
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
 ### Code Organization Tips
-- 🎯 একটা feature = একটা folder
-- 📦 Reusable widgets = shared folder (ভবিষ্যতের জন্য)
+- 🎯 One feature = One folder
+- 📦 Reusable widgets = shared folder (future)
 - 🔌 Dependencies = top-level imports
 - 🎨 Constants = constants.dart
 
@@ -578,22 +575,22 @@ dart run build_runner build --delete-conflicting-outputs
 - ✓ UI layouts, user interactions, data binding
 
 ### Code Comments
-- সব public methods এ docstring আছে
-- Complex logic explain করা আছে
-- TODO comments নেই (সব complete)
+- All public methods have docstrings
+- Complex logic is well-explained
+- No TODO comments (all features complete)
 
 ---
 
 ## 🎓 Learning Outcomes
 
-এই প্রজেক্টের মাধ্যমে শিখা যায়েছে:
+This project demonstrates:
 
 ### Flutter Concepts
-- ✅ Widget hierarchy এবং composition
+- ✅ Widget hierarchy and composition
 - ✅ State management with Provider
 - ✅ Navigation and routing
 - ✅ Material Design implementation
-- ✅ Form inputs এবং validation
+- ✅ Form inputs and validation
 
 ### Architecture Patterns
 - ✅ Clean Architecture principles
@@ -608,7 +605,7 @@ dart run build_runner build --delete-conflicting-outputs
 - ✅ Data migrations handling
 
 ### Development Practices
-- ✅ Code formatting এবং linting
+- ✅ Code formatting and linting
 - ✅ Error handling
 - ✅ Null safety
 - ✅ Testing approach
@@ -616,7 +613,7 @@ dart run build_runner build --delete-conflicting-outputs
 
 ### UI/UX Skills
 - ✅ Responsive design
-- ✅ Color theory এবং contrast
+- ✅ Color theory and contrast
 - ✅ Animation implementation
 - ✅ User experience optimization
 
@@ -670,7 +667,6 @@ Solution: Check MediaQuery usage, use responsive sizing
 | Role | Name | Responsibilities |
 |------|------|------------------|
 | Developer | Rashed Uzzaman | Full stack development |
-| Mentor | Bootcamp Team | Guidance & review |
 
 ---
 
@@ -679,7 +675,6 @@ Solution: Check MediaQuery usage, use responsive sizing
 **For Questions or Issues:**
 - 📧 Email: rashed.uzzaman@example.com
 - 💬 GitHub Issues: [Project Repo Issues]
-- 📱 Direct Message: Available on bootcamp platform
 
 ---
 
