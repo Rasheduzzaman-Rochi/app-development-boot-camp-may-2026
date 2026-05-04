@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'core/utils/constants.dart';
+import 'core/models/expense_model.dart';
 import 'features/home/presentation/screens/home_screen.dart';
 import 'providers/expense_provider.dart';
 import 'features/expense_history/presentation/screens/history_screen.dart';
 import 'features/add_expense/presentation/screens/add_expense_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ExpenseModelAdapter());
+  final expenseProvider = ExpenseProvider();
+  await expenseProvider.init();
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ExpenseProvider())],
+      providers: [ChangeNotifierProvider.value(value: expenseProvider)],
       child: const MExpenseApp(),
     ),
   );
